@@ -1,4 +1,8 @@
 const { prompt } = require('inquirer');
+const fs = require('fs');
+const cheerio = require("cheerio");
+let response = [];
+var http = require('http');
 
 function addManager() {
     prompt([
@@ -30,27 +34,36 @@ function addManager() {
         },
 
 
-    ]).then(ans => {
-        const corpTeamEl = document.querySelector("#corp-team");
-        corpTeamEl.append(
-        `<div class="card m-3 shadow" style="width: 18rem;">
-            <header class="bg-primary p-3 text-light d-flex justify-content-around">
-                <div>
-                    <h1>${ans.manager}</h1>
-                    <p>Manager</p>
-                </div>
-                <h1 class="align-self-center"><i class="fa-solid fa-mug-hot pb-2"></i></h1>
-            </header>
-            <div class="card-body bg-light">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">ID: ${ans.id}</li>
-                    <li class="list-group-item">Email: ${ans.email}</li>
-                    <li class="list-group-item">Office Number: ${ans.officeNumber}</li>
-                </ul>
-            </div>
-        </div>`
-    )})
-}
+    ])
+        http.createServer(function (req, res) {
+            //Open a file on the server and return its content:
+            fs.readFile('./index.html', function (err, data) {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write(data);
+                return res.end();
+            });
+        }).listen(8080);
+    }   
+
+    // `<div class="card m-3 shadow" style="width: 18rem;">
+    //             <header class="bg-primary p-3 text-light d-flex justify-content-around">
+    //                 <div>
+    //                     <h1>${res.manager}</h1>
+    //                     <p>Manager</p>
+    //                 </div>
+    //                 <h1 class="align-self-center"><i class="fa-solid fa-mug-hot pb-2"></i></h1>
+    //             </header>
+    //             <div class="card-body bg-light">
+    //                 <ul class="list-group list-group-flush">
+    //                     <li class="list-group-item">ID: ${res.id}</li>
+    //                     <li class="list-group-item">Email: ${res.email}</li>
+    //                     <li class="list-group-item">Office Number: ${res.officeNumber}</li>
+    //                 </ul>
+    //             </div>
+    //         </div>`
+
+
+
 
 function addEngineer() {
     prompt([
