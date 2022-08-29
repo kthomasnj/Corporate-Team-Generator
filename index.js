@@ -1,8 +1,8 @@
 const { prompt } = require('inquirer');
 const fs = require('fs');
 const cheerio = require("cheerio");
-let response = [];
 var http = require('http');
+let res = [];
 
 function addManager() {
     prompt([
@@ -30,20 +30,14 @@ function addManager() {
             type: 'list',
             name: "role",
             message: "Which type of team member would you like to add?",
-            choices: ['Manager', 'Engineer', 'Intern'],
+            choices: ['Manager', 'Engineer', 'Intern', 'No'],
         },
 
-
-    ])
-        http.createServer(function (req, res) {
-            //Open a file on the server and return its content:
-            fs.readFile('./index.html', function (err, data) {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(data);
-                return res.end();
-            });
-        }).listen(8080);
-    }   
+        
+    ]).then(ans => {        
+        res.push(ans);
+        addTeamMember(ans.role);
+    });
 
     // `<div class="card m-3 shadow" style="width: 18rem;">
     //             <header class="bg-primary p-3 text-light d-flex justify-content-around">
@@ -62,7 +56,7 @@ function addManager() {
     //             </div>
     //         </div>`
 
-
+}
 
 
 function addEngineer() {
@@ -84,19 +78,20 @@ function addEngineer() {
         },
         {
             type: "input",
-            name: "officeNumber",
+            name: "github",
             message: "What is your engineer's Github username?"
         },
         {
             type: 'list',
             name: "role",
             message: "Which type of team member would you like to add?",
-            choices: ['Manager', 'Engineer', 'Intern'],
+            choices: ['Manager', 'Engineer', 'Intern', 'No'],
         },
 
-
-    ]).then(ans => console.log(ans))
-}
+    ]).then(ans => {        
+        res.push(ans);
+        addTeamMember(ans.role);
+    })};
 
 function addIntern() {
     prompt([
@@ -117,18 +112,31 @@ function addIntern() {
         },
         {
             type: "input",
-            name: "officeNumber",
+            name: "school",
             message: "What is your intern's school?"
         },
         {
             type: 'list',
             name: "role",
             message: "Which type of team member would you like to add?",
-            choices: ['Manager', 'Engineer', 'Intern'],
+            choices: ['Manager', 'Engineer', 'Intern', 'No'],
         },
 
+    ]).then(ans => {        
+        res.push(ans);
+        addTeamMember(ans.role);
+    })};
 
-    ]).then(ans => console.log(ans))
+function addTeamMember(choices) {
+if(choices === 'Manager') {
+    addManager();
+} else if (choices === 'Engineer') {
+    addEngineer();
+} else if (choices === 'Intern') {
+    addIntern();
+} else {
+    console.log(res)
+}
 }
 
 addManager();
