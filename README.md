@@ -185,5 +185,13 @@ You are required to submit the following for review:
 
 * The URL of the GitHub repository, with a unique name and a readme describing the project.
 
+## Live Page
+
+Below is an image of the live site after all the options are answered. Click the link to see a live preview of the node.js program.
+
+https://drive.google.com/file/d/17p2LIsSLbokKnL7FF1zL2UGd321jrW8B/view?usp=sharing
+
+![Live HTML Page](./asset/images/live-page.PNG)
+
 ---
 © 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
